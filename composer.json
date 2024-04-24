@@ -1,0 +1,19 @@
+{
+    "name": "groupup/retouretitrebordereauegenerator",
+    "autoload": {
+        "psr-4": {
+            "Groupup\\Retouretitrebordereauegenerator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ALQAISI yasir",
+            "email": "yasir.alqaisi.ext@up.coop"
+        }
+    ],
+    "require": {
+        "setasign/fpdi": "^2.6",
+        "setasign/fpdf": "^1.8",
+        "tecnickcom/tcpdf": "^6.7"
+    }
+}
