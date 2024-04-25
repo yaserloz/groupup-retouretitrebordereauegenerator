@@ -2,7 +2,7 @@
 namespace Groupup\Retouretitrebordereauegenerator;
 
 require_once '../vendor/autoload.php';
-ini_set('display_errors', 0);
+// ini_set('display_errors', 0);
 
 
 
@@ -50,5 +50,5 @@ $colis = json_decode(json_encode(array(
     ],
 )));
 
-$retoureTitreB = new RetoureTitreBordereaue($colis, 'libs/');
+$retoureTitreB = new RetoureTitreBordereaue($colis, 'uploads', 'templates');
 var_dump($retoureTitreB->generateBordereaus(0));

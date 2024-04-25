@@ -191,11 +191,10 @@ class BCGi25 extends BCGBarcode1D {
      * @return string
      */
     private function changeBars($in) {
-        // var_dump($in);
         if ($this->ratio > 1) {
             $c = strlen($in);
             for ($i = 0; $i < $c; $i++) {
-                $in[$i] = $in[$i] === '1' ? ($this->ratio * intval($in[$i])) : $in[$i];
+                // $in[$i] = $in[$i] === '1' ? ($this->ratio * intval($in[$i])) : $in[$i];
             }
         }
 

@@ -15,18 +15,21 @@ class RetoureTitreBordereaue
     public $bordereau;
     public $mentionCodeBarre;
     public $uploadPath;
-    const ASSETS_PATH = '../assets/PdfModels/';
-
+    public $productsTemplatesPath;
     public $pdf;
 
     public function __construct(
         $colis,
-        $uploadPath
+        $uploadPath,
+        $productsTemplatesPath
     ) {
-        if(!isset($uploadPath)&& !is_dir($uploadPath)){
-            throw new \InvalidArgumentException('upload path folder is not set');
-
+        if(!is_dir($uploadPath)){
+            throw new \InvalidArgumentException('uploads path folder is not set');
         }
+        if(!isset($productsTemplatesPath)&& !is_dir($productsTemplatesPath)){
+            throw new \InvalidArgumentException('upload path folder is not set');
+        }
+
         if (!$colis->bordereaus) {
             throw new \InvalidArgumentException('Colis is null');
         }
@@ -38,7 +41,7 @@ class RetoureTitreBordereaue
             throw new \InvalidArgumentException('Colis must have a product');
         }
         $this->uploadPath = $uploadPath;
-
+        $this->productsTemplatesPath = $productsTemplatesPath;
         $this->colis = $colis;
     }
 
@@ -70,9 +73,9 @@ class RetoureTitreBordereaue
         $modele = $this->getModele();
 
         //Files that will be generated
-        $pdf_genere = $this->uploadPath.'bordereau_' . $this->bordereau->uid . '_' . $this->bordereau->code_client . '.pdf';
-        $gif_genere = $this->uploadPath.'bordereau_' . $this->bordereau->uid . '_' . $this->bordereau->code_client . '.jpg';
-        $gif_genere2 = $this->uploadPath.'bordereau_' . $this->bordereau->uid . '_' . $this->bordereau->code_client . '2.jpg';
+        $pdf_genere = $this->uploadPath.'/bordereau_' . $this->bordereau->uid . '_' . $this->bordereau->code_client . '.pdf';
+        $gif_genere = $this->uploadPath.'/bordereau_' . $this->bordereau->uid . '_' . $this->bordereau->code_client . '.jpg';
+        $gif_genere2 = $this->uploadPath.'/bordereau_' . $this->bordereau->uid . '_' . $this->bordereau->code_client . '2.jpg';
 
         $this->pdf->SetCompression(false);
         $this->pdf->SetMargins(0, 0);
@@ -105,8 +108,8 @@ class RetoureTitreBordereaue
         $this->setMontantTotal();
 
         if ($preview == 1) {
-            $codeBarre = 'assets/CodeBarExamples/code_barre_exemple.gif';
-            $codeBarre2 =  'assets/CodeBarExamples/code_barre_exemple2.gif';
+            $codeBarre = $this->productsTemplatesPath.'/CodeBarExamples/code_barre_exemple.gif';
+            $codeBarre2 =  $this->productsTemplatesPath.'/CodeBarExamples/code_barre_exemple2.gif';
             $this->setCodeBarre($codeBarre,$codeBarre2);
             $this->setMentionCodeBarre();
         }
@@ -241,9 +244,9 @@ class RetoureTitreBordereaue
     function getModele()
     {
         if ($this->colis->type_retour == 1 && $this->colis->produit->modele_bordereau_perime != '') {
-            return 'assets/PdfModels/' . $this->colis->produit->modele_bordereau_perime;
+            return $this->productsTemplatesPath.'/PdfModels/' . $this->colis->produit->modele_bordereau_perime;
         } else {
-            return 'assets/PdfModels/' . $this->colis->produit->modele_bordereau_avoir;
+            return $this->productsTemplatesPath.'/PdfModels/' . $this->colis->produit->modele_bordereau_avoir;
         }
 
     }
