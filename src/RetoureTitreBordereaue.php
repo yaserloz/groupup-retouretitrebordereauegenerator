@@ -513,7 +513,7 @@ class RetoureTitreBordereaue
             $text = $this->mentionCodeBarre;
         }
 
-        $this->pdf->AddFont('OCR', '', 'ocr-b_10_pitch_bt.php', '.');
+        $this->pdf->AddFont('OCR', '', 'ocr-b_10_pitch_bt.php', 'bordereauGeneratorFont/');
         $this->pdf->SetFont('OCR', '', 8);
         $this->pdf->SetXY(220, 766);
         $this->pdf->Write(0, $text);
